@@ -620,10 +620,10 @@ Single\n\
         module = inspect.getmodule(frame[0])
         file_name = module.__file__
         name = file_name.split(".")
-        fig_name = "../images/"+name[0]+".fig"
+        fig_name = name[0]+".fig"
         self.save(fig_name)
         lang = "-L"+language
-        list_files = subprocess.run(["fig2dev","-Lpng", fig_name, "../images/" + name[0]+"."+language])
+        list_files = subprocess.run(["fig2dev","-Lpng", fig_name,  name[0]+"."+language])
         if keepfig == 0:
             list_files = subprocess.run(["rm", "-rf", fig_name])
 

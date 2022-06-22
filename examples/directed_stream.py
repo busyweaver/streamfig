@@ -1,6 +1,4 @@
 import streamfig
-import os
-import subprocess
 
 s = streamfig.StreamFig(alpha=0, omega=15, directed = True)
 
@@ -14,4 +12,7 @@ s.addNode("d", [(0,15)])
 s.addNode("e",[(4,8),(9,15)])
 s.addNode("f",[(0,6),(9,15)])
 
-s.save_make_figure("png",1)
+s.addLink("a", "b", 1, 3)
+s.addLink("f", "e", 10, 12)
+
+s.save_make_figure("png",0)

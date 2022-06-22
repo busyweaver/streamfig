@@ -25,3 +25,19 @@ Then, generate your image:
 ```zsh
 python3 my_first_stream.py; fig2dev -Lpng my_first_stream.fig > my_first_stream.png
 ```
+
+Another possibility to generate png, eps files directly
+```python
+import streamfig
+
+s = streamfig.StreamFig()
+s.addNode("u")
+s.addNode("v")
+s.addLink("u", "v", 1, 3)
+s.save_make_figure("png")
+```
+Then, generate your image:
+
+```zsh
+python3 my_first_stream.py
+```
