@@ -2,8 +2,6 @@ import streamfig
 
 s = streamfig.StreamFig(alpha=0, omega=15, directed = True)
 
-s.addColor("grey", "#888888")
-s.addColor("red", "#ff0000")
 
 s.addNode("a", [(0,7),(10,15)])
 s.addNode("b", [(0,9),(12,15)])
