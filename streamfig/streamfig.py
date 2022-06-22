@@ -6,8 +6,10 @@
 # Gestion des erreurs (noeud non ajoute...)
 
 import sys
+import os
 import streamfig.printers as printers
-
+import inspect
+import subprocess
 __version__ = "1.2"
 __author__ = "Tiphaine Viard"
 
@@ -131,7 +133,7 @@ Letter\n\
 100.00\n\
 Single\n\
 -2\n\
-1200 2\n"""
+1200 2"""
         if self._streaming:
             print(self._header)
 
@@ -566,7 +568,6 @@ Single\n\
                     self._nodes[u]["id"] = i
 
             print(self._header, file=self._out_fp)
-            
             self._printer.printColors()
 
             if self._discrete:
@@ -605,6 +606,27 @@ Single\n\
 
             if self._timeline["display"]:
                 self._printer.printTimeLine()
+        out_fp.close()
+
+    def save_make_figure(self, language, keepfig = 0):
+        """
+            Save stream to a fig representation and then calls fig2dev with the desired extension. The name of the fig and finale langauge file are the same as the streamfig file.
+
+        :param langauge: desired format of the figure like png, eps, ...
+        :param keepfig: if one wants to keep the fig representation
+        """
+
+        frame = inspect.stack()[1]
+        module = inspect.getmodule(frame[0])
+        file_name = module.__file__
+        name = file_name.split(".")
+        fig_name = "../images/"+name[0]+".fig"
+        self.save(fig_name)
+        lang = "-L"+language
+        list_files = subprocess.run(["fig2dev","-Lpng", fig_name, "../images/" + name[0]+"."+language])
+        if keepfig == 0:
+            list_files = subprocess.run(["rm", "-rf", fig_name])
+
 
 
 
