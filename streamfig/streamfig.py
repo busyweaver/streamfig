@@ -623,7 +623,7 @@ Single\n\
         fig_name = name[0]+".fig"
         self.save(fig_name)
         lang = "-L"+language
-        list_files = subprocess.run(["fig2dev","-Lpng", fig_name,  name[0]+"."+language])
+        list_files = subprocess.run(["fig2dev",lang, fig_name,  name[0]+"."+language])
         if keepfig == 0:
             list_files = subprocess.run(["rm", "-rf", fig_name])
 
