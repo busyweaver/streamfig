@@ -156,7 +156,10 @@ class FigPrinter:
 
         # Add duration
         print("2 1 0 " + str(width) + " " + str(color) + " 7 50 -1 -1 0.000 0 0 -1 0 0 2", file=s._out_fp)
-        print(str(s._offset_x + int((b + curving) * s._time_unit)) + " " + str(s._offset_y + int(s._nodes[u]["id"]*s._node_unit + (numnodes*s._node_unit*height))) + " " + str(s._offset_x + int(e * s._time_unit)) + " " + str(s._offset_y + s._nodes[v]["id"]*s._node_unit - (numnodes*s._node_unit*(1-height))), file=s._out_fp)
+        if b != e:
+            print(str(s._offset_x + int((b + curving) * s._time_unit)) + " " + str(s._offset_y + int(s._nodes[u]["id"]*s._node_unit + (numnodes*s._node_unit*height))) + " " + str(s._offset_x + int(e * s._time_unit)) + " " + str(s._offset_y + s._nodes[v]["id"]*s._node_unit - (numnodes*s._node_unit*(1-height))), file=s._out_fp)
+        else:
+            print(str(s._offset_x + int((b ) * s._time_unit)) + " " + str(s._offset_y + int(s._nodes[u]["id"]*s._node_unit + (numnodes*s._node_unit*height))) + " " + str(s._offset_x + int(e * s._time_unit)) + " " + str(s._offset_y + s._nodes[v]["id"]*s._node_unit - (numnodes*s._node_unit*(1-height))), file=s._out_fp)
 
     def __printDiscreteLink(self, link): # u, v, b, e, curving=0.0, color=0, height=0.5, width=3):
         s = self.stream
