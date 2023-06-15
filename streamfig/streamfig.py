@@ -115,6 +115,7 @@ class StreamFig:
         self.linetype = 2
         
         self._timenodemarks = []
+        self._timenodecolors = []
         self._rectangles = []
         self._node_intervals = []
         self._time_intervals = []
@@ -382,6 +383,37 @@ Single\n\
             "depth": depth
         })
 
+    def addTimeNodeColor(self, t, v, color=0, width=2, depth=49):
+        """
+            Adds a mark (a circle) at a given node and time.
+
+            :param t: The time at which to add the mark
+            :param v: The node at which to add the mark
+            :param color: The mark's color (see addColor())
+            :param width: The mark's width
+            :param depth: Layer for XFIG. Higher values will put the mark in the background, lower in the foreground.
+
+            :type t: float
+            :type v: str
+            :type color: int/str
+            :type width: int
+            :type depth: int
+
+            :Example:
+
+            >>> d.addTimeNodeMark(2, "u", color=11, width=3)
+        """
+        if color in self._colors:
+            color = self._colors[color]["id"]
+
+        self._timenodecolors.append({
+            "t": t,
+            "v": v,
+            "color": color,
+            "width": width,
+            "depth": depth
+        })
+
     def addTimeIntervalMark(self, b, e, color=0, width=1):
         self._time_intervals.append({
             "b": b,
@@ -589,6 +621,9 @@ Single\n\
 
             for tnm in self._timenodemarks:
                 self._printer.printTimeNodeMark(tnm)
+
+            for tnm in self._timenodecolors:
+                self._printer.printTimeNodeColor(tnm)
 
             # Adds white rectangle in background around first node (for bounding box)
             self.addRectangle(self._first_node, self._first_node, self._alpha, self._omega, width=300,depth=60, color=7)

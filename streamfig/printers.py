@@ -302,6 +302,17 @@ class FigPrinter:
         print("2 1 0 "+ str(width) + " " + str(color) + " 7 " + str(depth) + " -1 -1 0.000 0 0 -1 0 0 2", file=s._out_fp)
         print(str(s._offset_x + int(t * s._time_unit) - 50 ) + " " + str(s._offset_y + s._nodes[v]["id"] * s._node_unit + 50) + " " + str(s._offset_x + int(t * s._time_unit) + 50 ) + " " + str(s._offset_y + s._nodes[v]["id"] * s._node_unit - 50), file=s._out_fp)
 
+
+    def printTimeNodeColor(self, tnm):
+        s = self.stream
+        t = tnm["t"]
+        v = tnm["v"]
+        color = tnm["color"]
+        width = tnm["width"]
+        depth = tnm["depth"]
+
+        print("1 3 0 " + str(width) + " " + str(color) + " " + str(color) + " 49 -1 20 0.000 1 0.0000 " + str(s._offset_x + int(t * s._time_unit)) + " " + str(s._offset_y + s._nodes[v]["id"]*s._node_unit) + " 45 45 -6525 -2025 -6480 -2025", file=s._out_fp)
+
     def printTimeIntervalMark(self, tim):
         s = self.stream
         b = tim["b"]
