@@ -43,7 +43,7 @@ class FigPrinter:
           """ + str(s._offset_x + int(i* s._time_unit)) + """ """ + str(s._offset_y + int(nodeid * s._node_unit)) + """ """ + str(s._offset_x + int(j * s._time_unit)) + """ """ + str(s._offset_y + int(nodeid * s._node_unit)), file=s._out_fp)
 
     def printDiscreteNode(self, u):
-        s = self._stream
+        s = self.stream
         color = s._nodes[u]["color"]
         times = s._nodes[u]["times"]
         nodeid = s._nodes[u]["id"]
@@ -52,11 +52,11 @@ class FigPrinter:
         print("4 0 " + str(color) + " 50 -1 0 30 0.0000 4 135 120 " + str(s._offset_x + int(s._alpha * s._time_unit) - 400) + " " + str(s._offset_y + 125 + int(nodeid * s._node_unit)) + " " + str(u) + "\\001", file=s._out_fp)
 
         if len(times) == 0:
-            for i in drange(s._alpha, s._omega, s._discrete):
+            for i in range(int(s._alpha), int(s._omega), s._discrete):
                 print("1 3 0 " + str(width) + " " + str(color) + " " + str(color) + " 49 -1 20 0.000 1 0.0000 " + str(s._offset_x + int(i * s._time_unit)) + " " + str(s._offset_y + nodeid * s._node_unit) + " 45 45 -6525 -2025 -6480 -2025", file=s._out_fp)
         else:
             for (i,j) in times:
-                for x in drange(i, j, s._discrete):
+                for x in range(i, j, s._discrete):
                     print("1 3 0 " + str(width) + " " + str(color) + " " + str(color) + " 49 -1 20 0.000 1 0.0000 " + str(s._offset_x + int(x * s._time_unit)) + " " + str(s._offset_y + nodeid * s._node_unit) + " 45 45 -6525 -2025 -6480 -2025", file=s._out_fp)
 
     
@@ -185,7 +185,7 @@ class FigPrinter:
                 (u,v) = (v,u)
             arrow_type = "0 0"
 
-        for i in drange(b,e, s._discrete):
+        for i in range(b,e, s._discrete):
             # Draw circles for u and v
             print("1 3 0 " + str(width) + " " + str(color) + " " + str(color) + " 49 -1 20 0.000 1 0.0000 " + str(s._offset_x + int(i * s._time_unit)) + " " + str(s._offset_y + s._nodes[u]["id"]*s._node_unit) + " 45 45 -6525 -2025 -6480 -2025", file=s._out_fp)
             print("1 3 0 " + str(width) + " " + str(color) + " " + str(color) + " 49 -1 20 0.000 1 0.0000 " + str(s._offset_x + int(i * s._time_unit)) + " " + str(s._offset_y + s._nodes[v]["id"]*s._node_unit) + " 45 45 -6525 -2025 -6480 -2025", file=s._out_fp)
